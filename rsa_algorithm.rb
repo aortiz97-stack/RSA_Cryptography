@@ -34,8 +34,9 @@ class RSA_Keys
         (@p-1) * (@q-1)
     end
 
-    def factors(n)
+    def factors(n) #only using positive factors here, excluding 1
         factors = []
+        return factors if n < 2
         (2..n).each do |factor|
             factors << factor if n % factor == 0
         end
@@ -44,6 +45,7 @@ class RSA_Keys
     end
 
     def co_prime?(a, b)
+        return false if a == 1 || b == 1
         a_factors = factors(a)
         b_factors = factors(b)
 
@@ -55,13 +57,11 @@ class RSA_Keys
             smallest = a_factors  
         end
 
-        (0...smallest.length).none?{|i| smallest[i] == biggest[i]}
+        smallest.none?{|small_f| biggest.include?(small_f) }
     end
 
     def e
-        possible_e = (2...self.totient).select{|int| co_prime?(int, self.totient)}
-        rand_idx = rand(0...possible_e_arr.length)
-        possible_e[rand_idx]
+        (2...self.totient).each{|int| return int if co_prime?(int, self.totient)}
     end
 end
 
@@ -70,5 +70,5 @@ end
 test = RSA_Keys.new
 p test.p
 p test.q
-p test.e
+p test
 
