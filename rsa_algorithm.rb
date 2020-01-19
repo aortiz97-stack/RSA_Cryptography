@@ -67,6 +67,9 @@ class RSA_Keys
     end
 
     def e
+        possible_e= get_possible_e
+        rand_idx = rand(0...possible_e_arr.length)
+        possible_e[rand_idx]
     end
 end
 
