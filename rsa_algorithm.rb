@@ -61,7 +61,20 @@ class RSA_Keys
     end
 
     def e
-        (2...self.totient).each{|int| return int if co_prime?(int, self.totient) && co_prime?(int, self.modulus)}
+        (2...self.totient).each{|int| return [int,self.modulus] if co_prime?(int, self.totient) && co_prime?(int, self.modulus)}
+    end
+
+    def find_x #helper method for finding the decryption key
+        x = 1
+        while (1 + (x * self.totient)) % self.e[0] != 0
+            x += 1
+        end 
+        x
+    end
+
+    def d
+        x = find_x
+        [(1 + (x * self.totient)) / self.e[0], self.modulus]
     end
 end
 
@@ -71,5 +84,6 @@ test = RSA_Keys.new
 p test.p
 p test.q
 p test.e
+p test.d
 
 
