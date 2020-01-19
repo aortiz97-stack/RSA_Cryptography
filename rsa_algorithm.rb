@@ -57,8 +57,16 @@ class RSA_Keys
         (0...smallest.length).none?{|i| smallest[i] == biggest[i]}
     end
 
-    def e(totient)
+    def get_possible_e
+        possible_e = []
+        (2...self.totient).each do |int|
+            possible_e << int if co_prime?(int, self.totient)
+        end
 
+        possible_e
+    end
+
+    def e
     end
 end
 
