@@ -10,12 +10,12 @@ class RSA_Keys
     end
 
     def generate_prime_integers
-        rand_num = rand(1000...1000000000)
+        rand_num = rand(1000...1000000)
         already_in = []
-        while prime?(rand_num)
+        while !prime?(rand_num)
             already_in << rand_num
             while already_in.include?(rand_num)
-                rand_num = rand(1000...1000000000)
+                rand_num = rand(1000...1000000)
             end
         end
         rand_num
@@ -70,5 +70,6 @@ end
 test = RSA_Keys.new
 p test.p
 p test.q
-p test
+p test.e
+
 
