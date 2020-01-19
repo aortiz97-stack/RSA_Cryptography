@@ -59,7 +59,7 @@ class RSA_Keys
     end
 
     def e
-        possible_e = possible_e = (2...self.totient).select{|int| co_prime?(int, self.totient)}
+        possible_e = (2...self.totient).select{|int| co_prime?(int, self.totient)}
         rand_idx = rand(0...possible_e_arr.length)
         possible_e[rand_idx]
     end
