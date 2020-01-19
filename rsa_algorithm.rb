@@ -3,10 +3,16 @@ require 'bsearch'
 
 # Generates large random integers for generating p and q.
 class RSA_Keys
-    def self.generate_prime_integers
+    attr_reader :p, :q
+    def initialize
+        @p = self.generate_prime_integers
+        @q = self.generate_prime_integers
+    end
+
+    def generate_prime_integers
         rand_num = rand(1000...1000000000)
         already_in = []
-        while self.prime?(rand_num)
+        while prime?(rand_num)
             already_in << rand_num
             while already_in.include?(rand_num)
                 rand_num = rand(1000...1000000000)
@@ -15,14 +21,9 @@ class RSA_Keys
         rand_num
     end
 
-    def self.prime?(n)
+    def prime?(n)
         return false if n < 2
         (2...n).none? {|factor| n % factor == 0}
-    end
-
-    def initialize(p, q)
-        @p = p
-        @q = q
     end
 
     def modulus
@@ -67,13 +68,15 @@ class RSA_Keys
     end
 
     def e
-        possible_e= get_possible_e
+        possible_e = get_possible_e
         rand_idx = rand(0...possible_e_arr.length)
         possible_e[rand_idx]
     end
 end
 
-num = RSA_Keys.generate_prime_integers
-p num
-test = RSA_Keys.new(0,1)
-p test.factors(num)
+#num = RSA_Keys.generate_prime_integers
+#p num
+test = RSA_Keys.new
+#p test.p
+p test.e
+
