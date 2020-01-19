@@ -61,7 +61,7 @@ class RSA_Keys
     end
 
     def e
-        (2...self.totient).each{|int| return int if co_prime?(int, self.totient)}
+        (2...self.totient).each{|int| return int if co_prime?(int, self.totient) && co_prime?(int, self.modulus)}
     end
 end
 
