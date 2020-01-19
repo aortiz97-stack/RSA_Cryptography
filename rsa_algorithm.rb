@@ -20,17 +20,17 @@ class RSA_Keys
         (2...n).none? {|factor| n % factor == 0}
     end
 
-    def initialize
-        @p = self.generate_prime_integers
-        @q = self.generate_prime_integers
+    def initialize(p, q)
+        @p = p
+        @q = q
     end
 
-    def modulus(p, q)
-        p * q
+    def modulus
+        @p * @q
     end
 
-    def totient(p, q)
-        (p-1) * (q-1)
+    def totient
+        (@p-1) * (@q-1)
     end
 
     def factors(n)
@@ -62,4 +62,7 @@ class RSA_Keys
     end
 end
 
-p generate_prime_integers
+num = RSA_Keys.generate_prime_integers
+p num
+test = RSA_Keys.new(0,1)
+p test.factors(num)
