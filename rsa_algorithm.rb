@@ -58,17 +58,8 @@ class RSA_Keys
         (0...smallest.length).none?{|i| smallest[i] == biggest[i]}
     end
 
-    def get_possible_e
-        possible_e = []
-        (2...self.totient).each do |int|
-            possible_e << int if co_prime?(int, self.totient)
-        end
-
-        possible_e
-    end
-
     def e
-        possible_e = get_possible_e
+        possible_e = possible_e = (2...self.totient).select{|int| co_prime?(int, self.totient)}
         rand_idx = rand(0...possible_e_arr.length)
         possible_e[rand_idx]
     end
@@ -77,6 +68,7 @@ end
 #num = RSA_Keys.generate_prime_integers
 #p num
 test = RSA_Keys.new
-#p test.p
+p test.p
+p test.q
 p test.e
 
