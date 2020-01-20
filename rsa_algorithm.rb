@@ -4,18 +4,20 @@ require 'bsearch'
 # Generates large random integers for generating p and q.
 class RSA_Keys
     attr_reader :p, :q
+    MIN = 10
+    MAX = 100
     def initialize
         @p = self.generate_prime_integers
         @q = self.generate_prime_integers
     end
 
     def generate_prime_integers
-        rand_num = rand(1000...1000000)
+        rand_num = rand(MIN...MAX)
         already_in = []
         while !prime?(rand_num)
             already_in << rand_num
             while already_in.include?(rand_num)
-                rand_num = rand(1000...1000000)
+                rand_num = rand(MIN...MAX)
             end
         end
         rand_num
